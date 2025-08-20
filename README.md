@@ -1,93 +1,77 @@
-🎥 Proctoring AI – Cheating Detection System
+# 🎥 AI Proctoring System – Cheating Detection
 
-This project is an AI-powered online exam proctoring tool that uses YOLOv8 object detection and MediaPipe FaceMesh to detect suspicious activities such as:
+An **AI-powered proctoring system** that detects cheating behaviors in real-time using **YOLOv8** for object detection and **MediaPipe FaceMesh** for head pose estimation.  
+It is designed for **online exams, assessments, and remote proctoring**, providing alerts and logs when suspicious activities are detected.
 
-✅ Multiple people in the frame
-✅ Use of mobile phones or books
-✅ Looking away from the screen
-✅ Face absence (student leaves camera view)
+---
 
-It provides real-time alerts, an on-screen HUD, CSV logs, and optional snapshot evidence.
+## 🚀 Features
+- ✅ **Multi-person detection** (flags if more than one person is present)  
+- 📱 **Phone detection** (detects use of mobile devices)  
+- 📖 **Book detection** (optional toggle for open-book exams)  
+- 👀 **Face absence tracking** (alerts if candidate leaves frame)  
+- 🔄 **Head pose estimation** (flags looking away for too long)  
+- 📊 **Cheating log system** (all alerts saved in CSV file)  
+- 🖼 **Optional snapshot capture** (saves frames where cheating was detected)  
+- ⏳ **Debouncing mechanism** (avoids false positives due to brief movements)  
 
-🚀 Features
+---
 
-YOLOv8 Detection – Detects person, phone, and books in real time
+## 🛠 Installation
 
-MediaPipe FaceMesh – Estimates head orientation (yaw/pitch)
-
-Cheating Alerts – Raised for multiple people, phone usage, book usage, or looking away
-
-Debouncing – Reduces false positives by requiring sustained violations
-
-Logging – Saves cheating events with timestamps to a CSV file
-
-Snapshot Evidence – (Optional) Stores screenshots when alerts trigger
-
-Configurable Thresholds – Adjust sensitivity for yaw, pitch, and absence detection
-
-📦 Installation
-
-Clone the repository and install dependencies:
-
-git clone https://github.com/your-username/proctoring-ai.git
-cd proctoring-ai
+### 1. Clone the repository
+```bash
+git clone https://github.com/your-username/ai-proctoring-system.git
+cd ai-proctoring-system
+2. Install dependencies
 pip install ultralytics opencv-python mediapipe numpy
 pip uninstall -y protobuf
 pip install protobuf==3.20.3
 
 ▶️ Usage
 
-Run the script:
+Run the main script:
 
 python Proctoring_AI_CheatingDetector_YOLO_MediaPipe.py
 
-
-Press q to quit the application.
-
 ⚙️ Configuration
 
-At the top of the script, you can tweak thresholds:
+At the top of the script, you can adjust thresholds:
 
-LOOKING_AWAY_YAW = 28      # Degrees left/right
-LOOKING_AWAY_PITCH = 22    # Degrees up/down
-LOOKING_AWAY_HOLD = 1.5    # Seconds before alert
-FACE_ABSENT_HOLD = 2.0     # Seconds before alert
-WATCH_BOOK = True          # Enable/Disable book detection
+LOOKING_AWAY_THRESH_YAW = 28 → Max horizontal head angle (°)
 
-📊 Output
+LOOKING_AWAY_THRESH_PITCH = 22 → Max vertical head angle (°)
 
-On-screen HUD: Displays real-time detection results and alert messages
+LOOKING_AWAY_HOLD = 1.2 → Seconds before “looking away” is flagged
 
-CSV Logs: Saved in cheating_log.csv with timestamp and type of cheating
+FACE_ABSENT_HOLD = 2.0 → Seconds face can be missing before alert
 
-Snapshots: (Optional) Saved in snapshots/ folder whenever cheating is detected
+WATCH_BOOK = True → Enable/disable book detection
 
-📸 Example HUD
-[ALERT] Multiple persons detected!
-[ALERT] Phone usage detected!
-[ALERT] Looking away from screen!
+📊 Logs & Output
 
-🛠 Tech Stack
+All cheating events are saved to cheating_log.csv with:
 
-Python 3.8+
+Timestamp
 
-YOLOv8 (Ultralytics) – Object detection
+Detected behavior (phone, book, face absent, etc.)
 
-OpenCV – Video processing & visualization
+Optionally saves snapshots of cheating moments (toggle in script).
 
-MediaPipe – Face & head orientation tracking
+🧩 Tech Stack
 
-NumPy – Math utilities
+YOLOv8 (Ultralytics) – Person, phone, and book detection
+
+MediaPipe FaceMesh – Facial landmark & head pose estimation
+
+OpenCV – Video stream processing and visualization
+
+Python – Core logic and alert system
 
 📌 Future Improvements
 
-🔊 Audio checks for multiple voices
+🎙 Audio analysis (detect multiple voices or background noise)
 
-🌐 Remote logging / cloud storage of alerts
+🌐 Live proctor dashboard (web-based monitoring)
 
-🎯 Advanced student behavior analysis (eye tracking, stress levels, etc.)
-
-🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-Feel free to fork and submit PRs.
+🖥 Cross-platform packaging (Windows/Linux/macOS executables)
